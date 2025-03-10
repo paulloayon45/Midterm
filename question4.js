@@ -1,60 +1,89 @@
-class Task {
-    constructor(id, name, description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-}
-
 const tasks = [];
 
-// Create a new task
-function addTask(name, description) {
-    const id = tasks.length + 1;
-    const newTask = new Task(id, name, description);
-    tasks.push(newTask);
-    console.log(`Task added: ${JSON.stringify(newTask)}`);
+
+// add the task you wanted to add
+function addTask(id, name, description) {
+    const task = { id, name, description };
+    tasks.push(task);
+    console.log(`Task added:`, task);
+    displayTasks();
 }
 
-// Read (View) all tasks
+// view tasks
 function viewTasks() {
-    if (tasks.length === 0) {
-        console.log('No tasks available.');
-    } else {
-        console.log('Task List:');
-        tasks.forEach(task => console.log(task));
-    }
+    console.log("All tasks:");
+    tasks.forEach(task => {
+        console.log(`ID: ${task.id}, Name: ${task.name}, Description: ${task.description}`);
+    });
 }
 
-// Update a task
-function updateTask(id, updatedName, updatedDescription) {
+//update or edit tasks
+function updateTask(id, newName, newDescription) {
     const task = tasks.find(task => task.id === id);
     if (task) {
-        task.name = updatedName || task.name;
-        task.description = updatedDescription || task.description;
-        console.log(`Task updated: ${JSON.stringify(task)}`);
+        task.name = newName;
+        task.description = newDescription;
+        console.log(`Task updated:`, task);
+        displayTasks();
     } else {
         console.log(`Task with ID ${id} not found.`);
     }
 }
 
-// Delete a task
+
+// delete the task/s of your choice
 function deleteTask(id) {
     const index = tasks.findIndex(task => task.id === id);
     if (index !== -1) {
         const deletedTask = tasks.splice(index, 1);
-        console.log(`Task deleted: ${JSON.stringify(deletedTask[0])}`);
+        console.log(`Task deleted:`, deletedTask[0]);
+        displayTasks();
     } else {
         console.log(`Task with ID ${id} not found.`);
     }
 }
 
-// Example Usage
-addTask('Complete Assignment', 'Finish math assignment by Friday.');
-addTask('Grocery Shopping', 'Buy fruits, vegetables, and snacks.');
-viewTasks();
+// view tasks or display
+function displayTasks() {
+    const taskList = document.getElementById("todo-task-list");
+    taskList.innerHTML = ""; // Clearing the list before re-rendering
+    tasks.forEach(task => {
+        const li = document.createElement("li");
 
-updateTask(1, 'Complete Math Assignment', 'Submit by Thursday.');
-deleteTask(2);
+        // information of the task you added
+        li.textContent = `ID: ${task.id}, Name: ${task.name}, Description: ${task.description}`;
 
-viewTasks();
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete");
+        deleteButton.onclick = () => deleteTask(task.id);
+        li.appendChild(deleteButton);
+
+
+        const updateButton = document.createElement("button");
+        updateButton.textContent = "Update";
+        updateButton.classList.add("update");
+        updateButton.onclick = () => {
+            const newName = prompt("Enter new task name:", task.name);
+            const newDescription = prompt("Enter new task description:", task.description);
+            if (newName && newDescription) {
+                updateTask(task.id, newName, newDescription);
+            }
+        };
+        li.appendChild(updateButton);
+
+        // Appending the task item to the list
+        taskList.appendChild(li);
+    });
+}
+
+
+
+document.getElementById("todo-task").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const nameInput = document.getElementById("todo-input");
+    const id = tasks.length + 1;
+    addTask(id, nameInput.value, `${nameInput.value}`);
+    nameInput.value = "";
+});

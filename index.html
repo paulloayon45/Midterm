@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo CRUD Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        background-color: #E3F2FD;
+
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: #BBDEFB;
+
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 350px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #0D47A1;
+
+        margin-bottom: 15px;
+    }
+
+    form {
+        display: flex;
+        gap: 10px;
+    }
+
+    #todo-input {
+        flex: 1;
+        padding: 8px;
+        border: 2px solid #1976D2;
+
+        border-radius: 8px;
+        outline: none;
+    }
+
+    button {
+        background-color: #1976D2;
+
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background-color: #0D47A1;
+
+    }
+
+    #todo-task-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    #todo-task-list li {
+        background-color: #64B5F6;
+
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #0D47A1;
+        font-weight: bold;
+    }
+
+    #todo-task-list button {
+        background-color: #E53935;
+
+        padding: 5px 10px;
+        border-radius: 8px;
+    }
+
+    #todo-task-list button:hover {
+        background-color: #B71C1C;
+
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>List of Tasks</h1>
+        <form id="todo-task">
+            <input type="text" id="todo-input" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul id="todo-task-list">
+    </div>
+    <script src="question4.js"></script>
+</body>
+
+</html>
